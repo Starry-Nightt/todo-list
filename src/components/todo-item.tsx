@@ -1,8 +1,15 @@
 import React from 'react'
+import { Todo } from '../shared/models/todo'
 
-function TodoItem() {
+interface Props {
+  todo: Todo,
+  updateTodo: (id: number, data: any) => void
+  deleteTodo: (id: number) => void
+}
+
+function TodoItem({todo}: Props) {
   return (
-    <div>TodoItem</div>
+    <li>{todo.title}</li>
   )
 }
 

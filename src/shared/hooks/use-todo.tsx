@@ -1,14 +1,14 @@
-import { Todo } from "../shared/models/todo";
-import { TodoPriority, TodoStatus } from "../shared/constants/todo";
-import { LocalStorageKey } from "../shared/constants/local-storage-key";
-import useLocalStorage from "../shared/hooks/use-local-storage";
+import { Todo } from "../models/todo";
+import { TodoPriority, TodoStatus } from "../constants/todo";
+import { LocalStorageKey } from "../constants/local-storage-key";
+import useLocalStorage from "./use-local-storage";
 import { useEffect, useState } from "react";
-import { getSortedArrayByKey } from "../shared/utils/helper";
+import { getSortedArrayByKey } from "../utils/helper";
 
 export default function useTodo() {
   const [todoList, setTodoList] = useLocalStorage(LocalStorageKey.TODO, []) as [
     Todo[],
-    React.SetStateAction<any>
+    React.Dispatch<React.SetStateAction<Todo[]>>
   ];
   const [filteredTodoList, setFilteredTodoList] = useState(todoList)
   const [q, setQ] = useState('')
