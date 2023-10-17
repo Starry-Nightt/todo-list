@@ -1,22 +1,17 @@
-import { Todo } from "../models/todo";
-import { TodoPriority, TodoStatus } from "../constants/todo";
+import { createContext,  useMemo} from "react";
+import React from "react";
 import { LocalStorageKey } from "../constants/local-storage-key";
-import useLocalStorage from "./use-local-storage";
-import { useEffect, useState } from "react";
-import { getSortedArrayByKey } from "../utils/helper";
+import { TodoPriority, TodoStatus } from "../constants/todo";
+import useLocalStorage from "../hooks/use-local-storage";
+import { Todo } from "../models/todo";
 
-export default function useTodo() {
+export const TodoContext = createContext(null);
+
+function TodoProvider({ children }) {
   const [todoList, setTodoList] = useLocalStorage(LocalStorageKey.TODO, []) as [
     Todo[],
     React.Dispatch<React.SetStateAction<Todo[]>>
   ];
-  const [filteredTodoList, setFilteredTodoList] = useState(todoList)
-  const [q, setQ] = useState('')
-
-  useEffect(() => {
-    const filteredList = getSortedArrayByKey(todoList, 'dueDate').reverse().filter(todo => todo.title.indexOf(q) !== -1)
-    setFilteredTodoList(filteredList)
-  }, [q, todoList])
 
   function createTodo(
     title: string,
@@ -30,7 +25,7 @@ export default function useTodo() {
       description,
       dueDate,
       priority,
-      status: TodoStatus.IN_COMPLETE
+      status: TodoStatus.IN_COMPLETE,
     };
     setTodoList((prev) => [newTodo, ...prev]);
   }
@@ -42,7 +37,7 @@ export default function useTodo() {
       description?: string;
       dueDate?: string;
       priority?: TodoPriority;
-      status?: TodoStatus
+      status?: TodoStatus;
     }
   ) {
     const newTodoList = todoList.map((item) => {
@@ -60,5 +55,19 @@ export default function useTodo() {
     setTodoList(newTodoList);
   }
 
-  return { filteredTodoList, createTodo, updateTodo, deleteTodo, setQ };
+  const contextValue = useMemo(
+    () => ({
+      todoList,
+      createTodo,
+      updateTodo,
+      deleteTodo,
+    }),
+    [todoList, createTodo, deleteTodo, updateTodo]
+  );
+
+  return (
+    <TodoContext.Provider value={contextValue}>{children}</TodoContext.Provider>
+  );
 }
+
+export default TodoProvider;

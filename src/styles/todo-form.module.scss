@@ -1,0 +1,49 @@
+@import "./variables.scss";
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  .form-title {
+    border: 2px solid $dim-color;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 0.5rem;
+    outline: none;
+  }
+
+  .form-description {
+    border: 2px solid $black-color;
+    padding: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .form-select, .form-date-picker {
+    width: 45%;
+  }
+
+  .form-date-picker-input {
+    padding: 10px;
+    border: 2px solid $black-color;
+    width: 100%;
+  }
+
+  .form-select-input {
+    padding: 10px;
+    border: 2px solid $black-color;
+    width: 100%;
+  }
+
+}
+
+
+@media screen and (max-width: 500px) {
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-select, .form-date-picker {
+        width: 100% !important;
+        margin-bottom: 1rem;
+      }
+}

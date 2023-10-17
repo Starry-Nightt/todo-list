@@ -19,8 +19,8 @@ export function getSortedArrayByKey(data: any[], key: string) {
 export function getCurrentDateString(): string {
   let today = new Date();
   let dd: string | number = today.getDate();
-  let mm: string | number  = today.getMonth() + 1;
-  let yyyy: string | number  = today.getFullYear();
+  let mm: string | number = today.getMonth() + 1;
+  let yyyy: string | number = today.getFullYear();
   if (dd < 10) {
     dd = "0" + dd;
   }
@@ -28,5 +28,5 @@ export function getCurrentDateString(): string {
   if (mm < 10) {
     mm = "0" + mm;
   }
-  return `${yyyy}-${mm}-${dd}`
+  return `${yyyy}-${mm}-${dd}`;
 }
