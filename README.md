@@ -1,6 +1,6 @@
 ## Run project
 
-npm run dev
+npm start
 
 ## Folder structure
 
