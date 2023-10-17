@@ -3,3 +3,8 @@ export enum TodoPriority {
   NORMAL,
   HIGH,
 }
+
+export enum TodoStatus {
+  IN_COMPLETE,
+  COMPLETE
+}

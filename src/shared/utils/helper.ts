@@ -7,3 +7,11 @@ export function getSavedValue(key: LocalStorageKey, initialValue: any) {
   if (initialValue instanceof Function) return initialValue();
   return initialValue ?? "";
 }
+
+export function getSortedArrayByKey(data: any[], key: string){
+  return data.sort((a, b) =>  {
+    const x = a[key]
+    const y = b[key]
+    return (x < y) ? -1 : (x > y ? 1 : 0);
+  })
+}
