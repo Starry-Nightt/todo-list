@@ -55,14 +55,25 @@ function TodoProvider({ children }) {
     setTodoList(newTodoList);
   }
 
+  function completeAllTodo() {
+    const newTodoList = todoList.map(todo => ({...todo, status: TodoStatus.COMPLETE}))
+    setTodoList(newTodoList)
+  }
+
+  function removeAllTodo(){
+    setTodoList([])
+  }
+
   const contextValue = useMemo(
     () => ({
       todoList,
       createTodo,
       updateTodo,
       deleteTodo,
+      completeAllTodo,
+      removeAllTodo
     }),
-    [todoList, createTodo, deleteTodo, updateTodo]
+    [todoList, createTodo, deleteTodo, updateTodo, completeAllTodo, removeAllTodo]
   );
 
   return (

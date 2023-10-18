@@ -1,6 +1,5 @@
-import React, {
+import  {
   useContext,
-  useDeferredValue,
   useEffect,
   useState,
 } from "react";
@@ -10,9 +9,11 @@ import TodoSearch from "../components/todo-search";
 import { Link, useSearchParams } from "react-router-dom";
 import { Todo } from "../shared/models/todo";
 import { getSortedArrayByKey } from "../shared/utils/helper";
+import style from "../styles/todo-list.module.scss";
 
 function TodoList() {
-  const { todoList, updateTodo, deleteTodo } = useContext(TodoContext);
+  const { todoList, updateTodo, deleteTodo, completeAllTodo, removeAllTodo } =
+    useContext(TodoContext);
   const [filteredTodoList, setFilteredTodoList] = useState<Todo[]>(todoList);
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const [q, setQ] = useState(searchParams.get("q"));
@@ -29,7 +30,6 @@ function TodoList() {
 
   useEffect(() => {
     const _filteredTodoList = getSortedArrayByKey(todoList, "dueDate")
-      .reverse()
       .filter((todo) => todo.title.indexOf(q) !== -1);
     setFilteredTodoList(_filteredTodoList);
   }, [q, todoList]);
@@ -53,6 +53,21 @@ function TodoList() {
           />
         ))}
       </ul>
+      <div
+        className={
+          "flex space-between items-center py-6 px-6 " + style["bulk-action"]
+        }
+      >
+        <span>Bluk Action: </span>
+        <div className="flex btn-group">
+          <button className="btn btn-info mx-3" onClick={completeAllTodo}>
+            Done
+          </button>
+          <button className="btn btn-danger mx-3" onClick={removeAllTodo}>
+            Remove
+          </button>
+        </div>
+      </div>
     </>
   );
 }

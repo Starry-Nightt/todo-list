@@ -37,7 +37,7 @@ function TodoItem({ todo, updateTodo, deleteTodo }: Props) {
           />
           {todo.title}
         </div>
-        <div className={"flex " + style["btn-group"]}>
+        <div className={"flex btn-group"}>
           <button className="btn btn-info mx-2" onClick={toggle}>Detail</button>
           <button className="btn btn-danger mx-2" onClick={onRemoveTodo}>
             Remove

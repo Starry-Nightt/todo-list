@@ -103,6 +103,21 @@ a {
   height: 40px;
 }
 
+
+@media screen and (max-width: 500px) {
+  .btn-group {
+    flex-direction: column;
+    gap: 1rem;
+
+    button {
+        font-size: 14px;
+        padding: 8px 12px;
+        display: block;
+        min-width: auto;
+    }
+  }
+}
+
 $space_amounts: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
 @each $space in $space_amounts {
