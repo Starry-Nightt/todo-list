@@ -105,16 +105,11 @@ a {
 
 
 @media screen and (max-width: 500px) {
-  .btn-group {
-    flex-direction: column;
-    gap: 1rem;
-
-    button {
-        font-size: 14px;
-        padding: 8px 12px;
-        display: block;
-        min-width: auto;
-    }
+  .btn {
+      font-size: 14px;
+      padding: 8px 12px;
+      display: block;
+      min-width: auto;
   }
 }
 

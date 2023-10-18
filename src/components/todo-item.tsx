@@ -8,13 +8,15 @@ interface Props {
   todo: Todo;
   updateTodo: (id: number, data: any) => void;
   deleteTodo: (id: number) => void;
+  setHasCheckedOne: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function TodoItem({ todo, updateTodo, deleteTodo }: Props) {
+function TodoItem({ todo, updateTodo, deleteTodo, setHasCheckedOne }: Props) {
   const [visible, toggle] = useToggle(false);
 
   const onCheckTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateTodo(todo.id, { status: e.target.checked });
+    setHasCheckedOne(true)
   };
 
   const onRemoveTodo = () => {

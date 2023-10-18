@@ -6,7 +6,7 @@ import TodoProvider from "./shared/contexts/todo-context";
 function App() {
   return (
     <TodoProvider>
-      <div className="container py-5">
+      <div className="container pt-5 pb-10">
         <Routes>
           <Route path='/' element={<TodoList/>}></Route>
           <Route path='/create' element={<TodoCreate/>}></Route>

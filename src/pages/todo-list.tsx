@@ -1,15 +1,11 @@
-import  {
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useContext, useEffect, useState } from "react";
 import { TodoContext } from "../shared/contexts/todo-context";
 import TodoItem from "../components/todo-item";
 import TodoSearch from "../components/todo-search";
 import { Link, useSearchParams } from "react-router-dom";
 import { Todo } from "../shared/models/todo";
 import { getSortedArrayByKey } from "../shared/utils/helper";
-import style from "../styles/todo-list.module.scss";
+import TodoBottomSheet from "../components/todo-bottom-sheet";
 
 function TodoList() {
   const { todoList, updateTodo, deleteTodo, completeAllTodo, removeAllTodo } =
@@ -17,6 +13,7 @@ function TodoList() {
   const [filteredTodoList, setFilteredTodoList] = useState<Todo[]>(todoList);
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const [q, setQ] = useState(searchParams.get("q"));
+  const [hasCheckedOne, setHasCheckedOne] = useState(false);
 
   useEffect(() => {
     setSearchParams(
@@ -29,8 +26,9 @@ function TodoList() {
   }, [q]);
 
   useEffect(() => {
-    const _filteredTodoList = getSortedArrayByKey(todoList, "dueDate")
-      .filter((todo) => todo.title.indexOf(q) !== -1);
+    const _filteredTodoList = getSortedArrayByKey(todoList, "dueDate").filter(
+      (todo) => todo.title.indexOf(q) !== -1
+    );
     setFilteredTodoList(_filteredTodoList);
   }, [q, todoList]);
 
@@ -43,31 +41,22 @@ function TodoList() {
         </button>
       </div>
       <TodoSearch q={q} setQ={setQ} />
-      <ul>
+      <ul className="pb-4">
         {filteredTodoList.map((todo) => (
           <TodoItem
             todo={todo}
             key={todo.id}
             updateTodo={updateTodo}
             deleteTodo={deleteTodo}
+            setHasCheckedOne={setHasCheckedOne}
           />
         ))}
       </ul>
-      <div
-        className={
-          "flex space-between items-center py-6 px-6 " + style["bulk-action"]
-        }
-      >
-        <span>Bluk Action: </span>
-        <div className="flex btn-group">
-          <button className="btn btn-info mx-3" onClick={completeAllTodo}>
-            Done
-          </button>
-          <button className="btn btn-danger mx-3" onClick={removeAllTodo}>
-            Remove
-          </button>
-        </div>
-      </div>
+      <TodoBottomSheet
+        visible={hasCheckedOne}
+        completeAllTodo={completeAllTodo}
+        removeAllTodo={removeAllTodo}
+      />
     </>
   );
 }
